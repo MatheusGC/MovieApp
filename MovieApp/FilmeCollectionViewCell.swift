@@ -10,4 +10,6 @@ import UIKit
 
 class FilmeCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var imagemFilme: UIImageView!
+    
 }
