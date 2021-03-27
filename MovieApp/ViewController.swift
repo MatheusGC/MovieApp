@@ -6,19 +6,40 @@
 //  Copyright © 2021 Matheus. All rights reserved.
 //
 
+
 import UIKit
+import Alamofire
+import AlamofireImage
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UICollectionViewDataSource{
+   
+    
+    @IBOutlet weak var colecaoFilmes: UICollectionView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getData()
+        colecaoFilmes.dataSource = self
     }
     
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 6
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let celulaFilme = collectionView.dequeueReusableCell(withReuseIdentifier: "celulaFilme", for: indexPath) as! FilmeCollectionViewCell
+        celulaFilme.backgroundColor = UIColor.blue
+        return celulaFilme
+    }
+    
+
     func getData(){
         
-        let urlString = "https://api.themoviedb.org/3/trending/all/week?api_key=92f48df587a0b620ed4b4a7ecc9b9159&language=pt-BR"
+    
+        let urlString = "https://api.themoviedb.org/3/trending/all/day?api_key=92f48df587a0b620ed4b4a7ecc9b9159"
         
         guard let url = URL(string: urlString) else {return}
         
@@ -26,11 +47,11 @@ class ViewController: UIViewController {
             //print(response)
             guard let data = data, error == nil else {return}
             
-            var resultado: Welcome?
+            var resultado:APIMovies?
             
             do{
                 
-                resultado = try JSONDecoder().decode(Welcome.self, from: data)
+                resultado = try JSONDecoder().decode(APIMovies.self, from: data)
                 
             }catch{
                 print(error.localizedDescription)
@@ -38,7 +59,8 @@ class ViewController: UIViewController {
             
             guard let resultadoFinal = resultado else {return}
             
-            print(resultadoFinal.results.first?.originalTitle)
+            print(resultadoFinal.results?.first?.originalTitle)
+            
         }
         
         task.resume()
@@ -55,10 +77,10 @@ class ViewController: UIViewController {
 import Foundation
 
 // MARK: - Welcome
-struct Welcome: Codable {
-    let page: Int
-    let results: [Result]
-    let totalPages, totalResults: Int
+struct APIMovies: Codable {
+    let page: Int?
+    let results: [Result]?
+    let totalPages, totalResults: Int?
     
     enum CodingKeys: String, CodingKey {
         case page, results
@@ -69,41 +91,38 @@ struct Welcome: Codable {
 
 // MARK: - Result
 struct Result: Codable {
-    let adult: Bool?
-    let backdropPath: String
-    let genreIDS: [Int]
-    let id: Int
-    let originalLanguage: OriginalLanguage
-    let originalTitle: String?
-    let overview, posterPath: String
-    let releaseDate, title: String?
+    let backdropPath: String?
+    let genreIDS: [Int]?
+    let originalLanguage, originalTitle, posterPath: String?
     let video: Bool?
-    let voteAverage: Double
-    let voteCount: Int
-    let popularity: Double
-    let mediaType: MediaType
+    let voteAverage: Double?
+    let voteCount: Int?
+    let overview, releaseDate, title: String?
+    let id: Int?
+    let adult: Bool?
+    let popularity: Double?
+    let mediaType: MediaType?
+    let originalName: String?
     let originCountry: [String]?
-    let firstAirDate, name, originalName: String?
+    let name, firstAirDate: String?
     
     enum CodingKeys: String, CodingKey {
-        case adult
         case backdropPath = "backdrop_path"
         case genreIDS = "genre_ids"
-        case id
         case originalLanguage = "original_language"
         case originalTitle = "original_title"
-        case overview
         case posterPath = "poster_path"
-        case releaseDate = "release_date"
-        case title, video
+        case video
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
-        case popularity
+        case overview
+        case releaseDate = "release_date"
+        case title, id, adult, popularity
         case mediaType = "media_type"
-        case originCountry = "origin_country"
-        case firstAirDate = "first_air_date"
-        case name
         case originalName = "original_name"
+        case originCountry = "origin_country"
+        case name
+        case firstAirDate = "first_air_date"
     }
 }
 
@@ -111,12 +130,4 @@ enum MediaType: String, Codable {
     case movie = "movie"
     case tv = "tv"
 }
-
-enum OriginalLanguage: String, Codable {
-    case en = "en"
-    case es = "es"
-    case ja = "ja"
-}
-
-
 
