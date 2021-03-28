@@ -12,4 +12,11 @@ class FilmeCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imagemFilme: UIImageView!
     
+    func recebeImagem(filme:Filmes){
+
+        guard let urlImagem = URL(string: filme.posterPath) else {return}
+
+        imagemFilme.af_setImage(withURL: urlImagem)
+    }
+
 }
