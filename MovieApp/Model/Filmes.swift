@@ -13,9 +13,15 @@ class Filmes: NSObject {
     var titulo:String
     var posterPath:String
     
-    init(_ titulo:String, _ posterPath:String) {
+    //testando
+    var rating:Double
+    var overview:String
+    
+    init(_ titulo:String, _ posterPath:String, _ rating:Double, _ overview:String) {
         self.titulo = titulo
         self.posterPath = posterPath
+        self.rating = rating
+        self.overview = overview
     }
     
     

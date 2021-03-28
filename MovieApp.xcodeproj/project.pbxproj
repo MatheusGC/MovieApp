@@ -15,6 +15,7 @@
 		5909F3F9260E4C52007360DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5909F3F7260E4C52007360DC /* LaunchScreen.storyboard */; };
 		5909F404260E4C53007360DC /* MovieAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5909F403260E4C53007360DC /* MovieAppTests.swift */; };
 		5909F40F260E4C53007360DC /* MovieAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5909F40E260E4C53007360DC /* MovieAppUITests.swift */; };
+		59A4DDFC26111347007FB3C9 /* DetalhesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A4DDFB26111347007FB3C9 /* DetalhesViewController.swift */; };
 		59CF1030260F7137006A57BB /* FilmeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CF102F260F7137006A57BB /* FilmeCollectionViewCell.swift */; };
 		59CF1034260F77A1006A57BB /* Filmes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CF1033260F77A1006A57BB /* Filmes.swift */; };
 		6DCFF6C41B7603A75A1C86AB /* Pods_MovieAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5800FDB9E0EED02231A91623 /* Pods_MovieAppTests.framework */; };
@@ -56,6 +57,7 @@
 		5909F40A260E4C53007360DC /* MovieAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5909F40E260E4C53007360DC /* MovieAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAppUITests.swift; sourceTree = "<group>"; };
 		5909F410260E4C53007360DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		59A4DDFB26111347007FB3C9 /* DetalhesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetalhesViewController.swift; sourceTree = "<group>"; };
 		59CF102F260F7137006A57BB /* FilmeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmeCollectionViewCell.swift; sourceTree = "<group>"; };
 		59CF1033260F77A1006A57BB /* Filmes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filmes.swift; sourceTree = "<group>"; };
 		5EFFBF783A657AA980EC369B /* Pods-MovieAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MovieAppUITests/Pods-MovieAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -120,10 +122,10 @@
 		5909F3EA260E4C51007360DC /* MovieApp */ = {
 			isa = PBXGroup;
 			children = (
-				59736282260EB92F0083C35D /* Controller */,
+				59A4DDF926111300007FB3C9 /* Detalhes */,
 				5973627F260EB6080083C35D /* Model */,
+				59A4DDFD26111661007FB3C9 /* Filmes */,
 				5909F3EB260E4C51007360DC /* AppDelegate.swift */,
-				5909F3ED260E4C51007360DC /* ViewController.swift */,
 				59CF102F260F7137006A57BB /* FilmeCollectionViewCell.swift */,
 				5909F3EF260E4C51007360DC /* Main.storyboard */,
 				5909F3F5260E4C52007360DC /* Assets.xcassets */,
@@ -160,11 +162,36 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		59736282260EB92F0083C35D /* Controller */ = {
+		59A4DDF926111300007FB3C9 /* Detalhes */ = {
 			isa = PBXGroup;
 			children = (
+				59A4DDFA26111309007FB3C9 /* Controller */,
+			);
+			path = Detalhes;
+			sourceTree = "<group>";
+		};
+		59A4DDFA26111309007FB3C9 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				59A4DDFB26111347007FB3C9 /* DetalhesViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		59A4DDFD26111661007FB3C9 /* Filmes */ = {
+			isa = PBXGroup;
+			children = (
+				59A4DDFE261116A9007FB3C9 /* controller */,
+			);
+			path = Filmes;
+			sourceTree = "<group>";
+		};
+		59A4DDFE261116A9007FB3C9 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				5909F3ED260E4C51007360DC /* ViewController.swift */,
+			);
+			path = controller;
 			sourceTree = "<group>";
 		};
 		704F527DA1420C86865F6734 /* Frameworks */ = {
@@ -404,6 +431,7 @@
 			files = (
 				59CF1030260F7137006A57BB /* FilmeCollectionViewCell.swift in Sources */,
 				5909F3EE260E4C51007360DC /* ViewController.swift in Sources */,
+				59A4DDFC26111347007FB3C9 /* DetalhesViewController.swift in Sources */,
 				5909F3EC260E4C51007360DC /* AppDelegate.swift in Sources */,
 				5909F3F4260E4C51007360DC /* MovieApp.xcdatamodeld in Sources */,
 				59CF1034260F77A1006A57BB /* Filmes.swift in Sources */,

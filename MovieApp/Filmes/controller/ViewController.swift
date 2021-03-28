@@ -12,7 +12,7 @@ import Alamofire
 import AlamofireImage
 
 
-class ViewController: UIViewController, UICollectionViewDataSource{
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
    
     var todosOsFilmes:APIMovies?
     @IBOutlet weak var colecaoFilmes: UICollectionView!
@@ -23,7 +23,7 @@ class ViewController: UIViewController, UICollectionViewDataSource{
         super.viewDidLoad()
         getData()
         colecaoFilmes.dataSource = self
-        //colecaoFilmes.delegate = self
+        colecaoFilmes.delegate = self
     }
     
     
@@ -46,8 +46,10 @@ class ViewController: UIViewController, UICollectionViewDataSource{
                 for i in 0...resultado.count-1{
                     guard let titulo = resultado[i].title else {return}
                     guard let posterPath = resultado[i].posterPath else {return}
+                    guard let rating = resultado[i].voteAverage else {return}
+                    guard let overview = resultado[i].overview else {return}
                     let caminhoCompleto = "https://image.tmdb.org/t/p/w500\(posterPath)"
-                    let newMovie = Filmes(titulo, caminhoCompleto)
+                    let newMovie = Filmes(titulo, caminhoCompleto, rating, overview)
                     self.listaDeFilmes.append(newMovie)
                     print(self.listaDeFilmes[i].titulo)
                     print(self.listaDeFilmes[i].posterPath)
@@ -80,6 +82,15 @@ class ViewController: UIViewController, UICollectionViewDataSource{
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let filme = listaDeFilmes[indexPath.item]
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "detalhesFilmes") as! DetalhesViewController
+        controller.filmeSelecionado = filme
+        self.present(controller, animated: true, completion: nil)
+        //print("Clicou em um filme")
+    }
+    
     
 }
 
@@ -102,7 +113,7 @@ struct APIMovies: Codable {
 // MARK: - Result
 struct Result: Codable {
     let video: Bool
-    let voteAverage: Double
+    let voteAverage: Double?
     let overview, releaseDate, title: String?
     let adult: Bool
     let backdropPath: String
