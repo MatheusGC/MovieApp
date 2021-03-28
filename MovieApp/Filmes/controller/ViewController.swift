@@ -12,7 +12,7 @@ import Alamofire
 import AlamofireImage
 
 
-class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
    
     var todosOsFilmes:APIMovies?
     @IBOutlet weak var colecaoFilmes: UICollectionView!
@@ -89,6 +89,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         controller.filmeSelecionado = filme
         self.present(controller, animated: true, completion: nil)
         //print("Clicou em um filme")
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 180, height: 277.5)
     }
     
     

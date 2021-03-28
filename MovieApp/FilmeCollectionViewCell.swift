@@ -17,6 +17,7 @@ class FilmeCollectionViewCell: UICollectionViewCell {
         guard let urlImagem = URL(string: filme.posterPath) else {return}
 
         imagemFilme.af_setImage(withURL: urlImagem)
+        
     }
 
 }
