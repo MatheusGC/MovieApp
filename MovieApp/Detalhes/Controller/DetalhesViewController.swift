@@ -24,7 +24,7 @@ class DetalhesViewController: UIViewController {
         if let filme = filmeSelecionado {
             self.imagemDoFilme.af_setImage(withURL: URL(string: filme.posterPath)!)
             self.labelTituloDoFilme.text = filme.titulo
-            self.labelRatingDoFilme.text = String(filme.rating)
+            self.labelRatingDoFilme.text = ("Rating: \(String(filme.rating))")
             self.labelSinopseDoFilme.text = filme.overview
             
         }
@@ -33,6 +33,12 @@ class DetalhesViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    
+    @IBAction func botaoVoltar(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+        
     }
     
     
