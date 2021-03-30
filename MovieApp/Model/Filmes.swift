@@ -10,19 +10,12 @@ import UIKit
 
 class Filmes: NSObject {
     
-    var titulo:String
     var posterPath:String
+    var id:Int
     
-    //testando
-    var rating:Double
-    var overview:String
-    
-    init(_ titulo:String, _ posterPath:String, _ rating:Double, _ overview:String) {
-        self.titulo = titulo
+    init(posterPath:String, id:Int){
         self.posterPath = posterPath
-        self.rating = rating
-        self.overview = overview
+        self.id = id
     }
-    
     
 }

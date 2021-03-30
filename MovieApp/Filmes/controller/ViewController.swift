@@ -15,9 +15,10 @@ import AlamofireImage
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
    
     var todosOsFilmes:APIMovies?
+    var listaDeFilmes:[Filmes] = []
+    
     @IBOutlet weak var colecaoFilmes: UICollectionView!
     
-    var listaDeFilmes:[Filmes] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +29,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     
     func getData(){
-        
     
-        let urlString = "https://api.themoviedb.org/3/trending/movie/day?api_key=92f48df587a0b620ed4b4a7ecc9b9159"
-        
+        let urlString = "https://api.themoviedb.org/3/trending/movie/week?api_key=92f48df587a0b620ed4b4a7ecc9b9159&language=pt-BR"
         guard let url = URL(string: urlString) else {return}
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -42,33 +41,27 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 self.todosOsFilmes = try JSONDecoder().decode(APIMovies.self, from: data)
                 guard let resultado = self.todosOsFilmes?.results  else {return}
                 
-            
-                for i in 0...resultado.count-1{
-                    guard let titulo = resultado[i].title else {return}
+            for i in 0...resultado.count-1{
                     guard let posterPath = resultado[i].posterPath else {return}
-                    guard let rating = resultado[i].voteAverage else {return}
-                    guard let overview = resultado[i].overview else {return}
+                    guard let id = resultado[i].id else {return}
                     let caminhoCompleto = "https://image.tmdb.org/t/p/w500\(posterPath)"
-                    let newMovie = Filmes(titulo, caminhoCompleto, rating, overview)
+                    let newMovie = Filmes(posterPath: caminhoCompleto, id: id)
                     self.listaDeFilmes.append(newMovie)
-                    print(self.listaDeFilmes[i].titulo)
-                    print(self.listaDeFilmes[i].posterPath)
+                    //print(self.listaDeFilmes[i].titulo)
+                    //print(self.listaDeFilmes[i].posterPath)
                     }
-                 self.colecaoFilmes.reloadData()
-              
+                
+                DispatchQueue.main.async {
+                    self.colecaoFilmes.reloadData()
+                }
             }catch{
                 print(error.localizedDescription)
             }
-           
-        }
-        
+           }
         task.resume()
-        
-       
-    }
+        }
     
     
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return listaDeFilmes.count
     }
@@ -77,7 +70,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let celulaFilme = collectionView.dequeueReusableCell(withReuseIdentifier: "celulaFilme", for: indexPath) as! FilmeCollectionViewCell
         let filme = listaDeFilmes[indexPath.item]
         celulaFilme.recebeImagem(filme: filme)
-        //celulaFilme.backgroundColor = UIColor.blue
         return celulaFilme
         
     }
@@ -88,7 +80,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let controller = storyboard.instantiateViewController(withIdentifier: "detalhesFilmes") as! DetalhesViewController
         controller.filmeSelecionado = filme
         self.present(controller, animated: true, completion: nil)
-        //print("Clicou em um filme")
+      
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -99,60 +91,3 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 }
 
 
-import Foundation
-
-// MARK: - APIMovies
-struct APIMovies: Codable {
-    let page: Int
-    let results: [Result]
-    let totalPages, totalResults: Int
-    
-    enum CodingKeys: String, CodingKey {
-        case page, results
-        case totalPages = "total_pages"
-        case totalResults = "total_results"
-    }
-}
-
-// MARK: - Result
-struct Result: Codable {
-    let video: Bool
-    let voteAverage: Double?
-    let overview, releaseDate, title: String?
-    let adult: Bool
-    let backdropPath: String
-    let id: Int
-    let genreIDS: [Int]
-    let voteCount: Int
-    let originalLanguage: OriginalLanguage
-    let originalTitle, posterPath: String?
-    let popularity: Double
-    let mediaType: MediaType
-    
-    enum CodingKeys: String, CodingKey {
-        case video
-        case voteAverage = "vote_average"
-        case overview
-        case releaseDate = "release_date"
-        case title, adult
-        case backdropPath = "backdrop_path"
-        case id
-        case genreIDS = "genre_ids"
-        case voteCount = "vote_count"
-        case originalLanguage = "original_language"
-        case originalTitle = "original_title"
-        case posterPath = "poster_path"
-        case popularity
-        case mediaType = "media_type"
-    }
-}
-
-enum MediaType: String, Codable {
-    case movie = "movie"
-}
-
-enum OriginalLanguage: String, Codable {
-    case en = "en"
-    case it = "it"
-    case ru = "ru"
-}
