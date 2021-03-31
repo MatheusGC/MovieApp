@@ -16,7 +16,7 @@ struct DetalhesFilmes: Codable {
 //    let homepage: String
     let id: Int?
     let imdbID, originalLanguage, originalTitle, overview: String?
-    let popularity: Double
+    //let popularity: Double
     let posterPath: String?
 //    let productionCompanies: [ProductionCompany]
 //    let productionCountries: [ProductionCountry]
@@ -24,7 +24,7 @@ struct DetalhesFilmes: Codable {
 //    let revenue, runtime: Int
 //    let spokenLanguages: [SpokenLanguage]
     let status, tagline, title: String?
-    let video: Bool
+    //let video: Bool
     let voteAverage: Double?
     //let voteCount: Int
     
@@ -37,7 +37,8 @@ struct DetalhesFilmes: Codable {
         case imdbID = "imdb_id"
         case originalLanguage = "original_language"
         case originalTitle = "original_title"
-        case overview, popularity
+        case overview
+        //case popularity
         case posterPath = "poster_path"
 //        case productionCompanies = "production_companies"
 //        case productionCountries = "production_countries"
@@ -45,7 +46,7 @@ struct DetalhesFilmes: Codable {
 //        case revenue, runtime
 //        case spokenLanguages = "spoken_languages"
         case status, tagline, title
-        case video
+        //case video
         case voteAverage = "vote_average"
         //case voteCount = "vote_count"
     }

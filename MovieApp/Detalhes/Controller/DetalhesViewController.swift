@@ -61,7 +61,7 @@ class DetalhesViewController: UIViewController {
                         }
                 }
             }catch{
-                print(error)
+                print(error.localizedDescription)
             }
 }
 
