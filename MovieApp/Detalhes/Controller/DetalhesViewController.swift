@@ -56,7 +56,7 @@ class DetalhesViewController: UIViewController {
                     for resultadosDaLista in self.listaDeDetalhes{
                         self.imagemDoFilme.af_setImage(withURL: URL(string: resultadosDaLista.posterPath)!)
                         self.labelTituloDoFilme.text = resultadosDaLista.titulo
-                        self.labelRatingDoFilme.text = String(resultadosDaLista.rating)
+                        self.labelRatingDoFilme.text = String("Rating: \(resultadosDaLista.rating)")
                         self.labelSinopseDoFilme.text = resultadosDaLista.overview
                         }
                 }
