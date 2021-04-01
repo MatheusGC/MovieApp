@@ -13,5 +13,6 @@ na segunda tela.
  - mostrar os posters dos filmes na primeira tela
  - implementação da segunda API, após chamá-la a partir do id do filme da primeira API
  - auto layout e constraints
+ - organização das classes
 
 
