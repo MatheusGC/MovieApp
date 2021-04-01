@@ -8,7 +8,7 @@ Fiz a chamada da segunda API com o id do filme da primeira para listar os detalh
 na segunda tela.
 
 
-//MAIORES DIFICULDADE:
+//MAIORES DIFICULDADES:
 
  - mostrar os posters dos filmes na primeira tela
  - implementação da segunda API, após chamá-la a partir do id do filme da primeira API
