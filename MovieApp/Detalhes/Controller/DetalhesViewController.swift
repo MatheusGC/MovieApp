@@ -11,10 +11,10 @@ import UIKit
 class DetalhesViewController: UIViewController {
     
     
-    @IBOutlet weak var imagemDoFilme: UIImageView!
-    @IBOutlet weak var labelTituloDoFilme: UILabel!
-    @IBOutlet weak var labelRatingDoFilme: UILabel!
-    @IBOutlet weak var labelSinopseDoFilme: UILabel!
+    @IBOutlet weak var imagemDoFilme: UIImageView?
+    @IBOutlet weak var labelTituloDoFilme: UILabel?
+    @IBOutlet weak var labelRatingDoFilme: UILabel?
+    @IBOutlet weak var labelSinopseDoFilme: UILabel?
     
     var filmeSelecionado:Filmes?
     var todosOsDetalhes:DetalhesFilmes?
@@ -43,25 +43,37 @@ class DetalhesViewController: UIViewController {
 
             do{
                 self.todosOsDetalhes = try JSONDecoder().decode(DetalhesFilmes.self, from: data)
-                guard let resultadoDetalhes = self.todosOsDetalhes  else {return}
-                guard let posterPath = resultadoDetalhes.posterPath else {return}
-                guard let titulo = resultadoDetalhes.title else {return}
-                guard let rating = resultadoDetalhes.voteAverage else {return}
-                guard let overview = resultadoDetalhes.overview else {return}
+                guard let posterPath = self.todosOsDetalhes?.posterPath else {return}
+                guard let titulo = self.todosOsDetalhes?.title else {return}
+                guard let rating = self.todosOsDetalhes?.voteAverage else {return}
+                guard let overview = self.todosOsDetalhes?.overview else {return}
                 let caminhoCompleto = "https://image.tmdb.org/t/p/w500\(posterPath)"
                 let detalheAtual = Detalhes(posterPath: caminhoCompleto, titulo: titulo, rating: rating, overview: overview)
                 self.listaDeDetalhes.append(detalheAtual)
                 //print(self.listaDeDetalhes[0].titulo)
                 DispatchQueue.main.async {
                     for resultadosDaLista in self.listaDeDetalhes{
-                        self.imagemDoFilme.af_setImage(withURL: URL(string: resultadosDaLista.posterPath)!)
-                        self.labelTituloDoFilme.text = resultadosDaLista.titulo
-                        self.labelRatingDoFilme.text = String("Rating: \(resultadosDaLista.rating)")
-                        self.labelSinopseDoFilme.text = resultadosDaLista.overview
+                        guard let url = URL(string: resultadosDaLista.posterPath) else {return}
+                        if self.imagemDoFilme != nil{
+                            self.imagemDoFilme!.af_setImage(withURL: url)
                         }
+                        if self.labelTituloDoFilme != nil{
+                            self.labelTituloDoFilme!.text = resultadosDaLista.titulo
+                        }
+                        
+                        if self.labelRatingDoFilme != nil {
+                            self.labelRatingDoFilme!.text = String("Rating: \(resultadosDaLista.rating)")
+                        }
+                        
+                        if self.labelSinopseDoFilme != nil{
+                            self.labelSinopseDoFilme!.text = resultadosDaLista.overview
+                        }
+                        
+                        }
+
                 }
             }catch{
-                print(error.localizedDescription)
+                print(error)
             }
 }
 

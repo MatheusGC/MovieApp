@@ -40,6 +40,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 
                 self.todosOsFilmes = try JSONDecoder().decode(APIMovies.self, from: data)
                 guard let resultado = self.todosOsFilmes?.results  else {return}
+            
                 
             for i in 0...resultado.count-1{
                     guard let posterPath = resultado[i].posterPath else {return}
@@ -55,7 +56,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     self.colecaoFilmes.reloadData()
                 }
             }catch{
-                print(error.localizedDescription)
+                print(error)
             }
            }
         task.resume()
@@ -86,6 +87,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 180, height: 277.5)
     }
+    
+   
     
     
 }

@@ -15,7 +15,8 @@ struct DetalhesFilmes: Codable {
 //    let genres: [Genre]
 //    let homepage: String
     let id: Int?
-    let imdbID, originalLanguage, originalTitle, overview: String?
+    //let imdbID, originalLanguage: String?
+    let originalTitle, overview: String?
     //let popularity: Double
     let posterPath: String?
 //    let productionCompanies: [ProductionCompany]
@@ -34,8 +35,8 @@ struct DetalhesFilmes: Codable {
 //        case belongsToCollection = "belongs_to_collection"
         //case budget, genres, homepage
         case id
-        case imdbID = "imdb_id"
-        case originalLanguage = "original_language"
+        //case imdbID = "imdb_id"
+        //case originalLanguage = "original_language"
         case originalTitle = "original_title"
         case overview
         //case popularity
@@ -95,27 +96,27 @@ struct Genre: Codable {
 
 // MARK: - Encode/decode helpers
 
-class JSONNull: Codable, Hashable {
-
-    public static func == (lhs: JSONNull, rhs: JSONNull) -> Bool {
-        return true
-    }
-
-    public var hashValue: Int {
-        return 0
-    }
-
-    public init() {}
-
-    public required init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if !container.decodeNil() {
-            throw DecodingError.typeMismatch(JSONNull.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for JSONNull"))
-        }
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encodeNil()
-    }
-}
+//class JSONNull: Codable, Hashable {
+//
+//    public static func == (lhs: JSONNull, rhs: JSONNull) -> Bool {
+//        return true
+//    }
+//
+//    public var hashValue: Int {
+//        return 0
+//    }
+//
+//    public init() {}
+//
+//    public required init(from decoder: Decoder) throws {
+//        let container = try decoder.singleValueContainer()
+//        if !container.decodeNil() {
+//            throw DecodingError.typeMismatch(JSONNull.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for JSONNull"))
+//        }
+//    }
+//
+//    public func encode(to encoder: Encoder) throws {
+//        var container = encoder.singleValueContainer()
+//        try container.encodeNil()
+//    }
+//}

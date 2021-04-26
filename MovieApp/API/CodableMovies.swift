@@ -27,7 +27,7 @@ struct Result: Codable {
     let backdropPath: String
     let genreIDS: [Int]
     let voteCount: Int
-    let originalLanguage: OriginalLanguage
+    //let originalLanguage: OriginalLanguage
     let originalTitle, posterPath, title: String?
     let video: Bool
     let voteAverage: Double?
@@ -42,7 +42,7 @@ struct Result: Codable {
         case backdropPath = "backdrop_path"
         case genreIDS = "genre_ids"
         case voteCount = "vote_count"
-        case originalLanguage = "original_language"
+        //case originalLanguage = "original_language"
         case originalTitle = "original_title"
         case posterPath = "poster_path"
         case title, video
