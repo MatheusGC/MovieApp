@@ -29,8 +29,8 @@ class DetalhesViewController: UIViewController {
     
     @IBAction func botaoVoltar(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
-        
     }
+    
     
     func getDataDetalhes(filme:Filmes){
 

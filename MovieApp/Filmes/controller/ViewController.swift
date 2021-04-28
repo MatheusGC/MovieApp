@@ -17,14 +17,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var todosOsFilmes:APIMovies?
     var listaDeFilmes:[Filmes] = []
     
-    @IBOutlet weak var colecaoFilmes: UICollectionView!
+    @IBOutlet weak var colecaoFilmes: UICollectionView?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getData()
-        colecaoFilmes.dataSource = self
-        colecaoFilmes.delegate = self
+        colecaoFilmes?.dataSource = self
+        colecaoFilmes?.delegate = self
     }
     
     
@@ -53,7 +53,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     }
                 
                 DispatchQueue.main.async {
-                    self.colecaoFilmes.reloadData()
+                    self.colecaoFilmes?.reloadData()
                 }
             }catch{
                 print(error)

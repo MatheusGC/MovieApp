@@ -6,13 +6,25 @@
 //  Copyright © 2021 Matheus. All rights reserved.
 //
 
+
 import XCTest
 @testable import MovieApp
 
 class MovieAppTests: XCTestCase {
-
+    
+    var filmeViewController: ViewController!
+    var lista:[Filmes] = []
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        filmeViewController = (UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "controller") as! ViewController)
+        _ = filmeViewController.view
+        
+        var contFilme = 1
+        for _ in 0...9{
+            let filme = Filmes(posterPath: "https://image.tmdb.org/t/p/w500/v9XwEXYWpxt2rpkmFBiQ1zeyKUy.jpg\(contFilme)", id: 791373 + contFilme)
+            lista.append(filme)
+            contFilme += 1
+        }
     }
 
     override func tearDown() {
@@ -48,40 +60,16 @@ class MovieAppTests: XCTestCase {
         
     }
     
-    //Testes DetalhesViewController
-    func testDeveRetornarRating(){
-
-    let x = DetalhesViewController()
-    let filme = Filmes(posterPath: "https://image.tmdb.org/t/p/w500/inNN466SKHNjbGmpfhfsaPQNleS.jpg", id: 791373)
-    x.getDataDetalhes(filme: filme)
-    guard let rating = x.listaDeDetalhes.first?.rating else {return}
-
-    XCTAssertEqual(rating, 8.5 )
-
-    }
-
-    func testDeveRetornarOverview(){
-
-        let x = DetalhesViewController()
-        let filme = Filmes(posterPath: "https://image.tmdb.org/t/p/w500/inNN466SKHNjbGmpfhfsaPQNleS.jpg", id: 791373)
-        x.getDataDetalhes(filme: filme)
-
-        guard let overview = x.listaDeDetalhes.first?.overview else {return}
-
-        XCTAssertEqual(overview, "Determinado a garantir que o sacrifício final do Superman não foi em vão, Bruce Wayne alinha forças com Diana Prince com planos de recrutar uma equipe de metahumanos para proteger o mundo de uma ameaça de proporções catastróficas que se aproxima.")
-
-    }
     
-    func testDeveRetornarTitulo(){
-        let x = DetalhesViewController()
-        let filme = Filmes(posterPath: "https://image.tmdb.org/t/p/w500/inNN466SKHNjbGmpfhfsaPQNleS.jpg", id: 791373)
-        x.getDataDetalhes(filme: filme)
-        guard let titulo = x.listaDeDetalhes.first?.titulo else {return}
+    
+    func testCollection(){
         
-        XCTAssertEqual(titulo, "Liga da Justiça de Zack Snyder")
+        filmeViewController.listaDeFilmes = lista
+        
+        XCTAssertEqual(filmeViewController.colecaoFilmes?.numberOfItems(inSection: 0), 10)
+        
     }
     
-    
-    
 
+    
 }
